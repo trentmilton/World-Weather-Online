@@ -11,6 +11,7 @@
 @implementation WWOHelper
 
 static WWOCurrentCondition *currentCondition;
+static NSString *weatherCodesURLString = @"http://www.worldweatheronline.com/feed/wwoConditionCodes.xml";
 
 + (WWOCurrentCondition *) getCurrentCondition
 {
@@ -26,6 +27,7 @@ static WWOCurrentCondition *currentCondition;
     NSString *urlString = [NSString stringWithFormat:@"http://free.worldweatheronline.com/feed/weather.ashx?key=%@&q=%f,%f&format=xml&num_of_days=5",
                      apiKey, latitude, longitude];
     NSURL *url = [NSURL URLWithString:urlString];
+
     TBXML *tbxml = [TBXML tbxmlWithURL:url];
     TBXMLElement *root = tbxml.rootXMLElement;
     
@@ -61,9 +63,25 @@ static WWOCurrentCondition *currentCondition;
         [weathers addObject:weather];
             
     } while ((weatherElement = weatherElement->nextSibling));      
-    //NSLog(@"weathers length = %i", [weathers count]);
+
     return weathers;
 
+}
+
++ (NSArray *) getWeatherCodes 
+{
+    NSURL *url = [NSURL URLWithString:weatherCodesURLString];
+    TBXML *tbxml = [TBXML tbxmlWithURL:url];
+    TBXMLElement *root = tbxml.rootXMLElement;
+    TBXMLElement *conditionElement = [TBXML childElementNamed:@"condition" parentElement:root];
+    NSMutableArray *weatherCodes = [[NSMutableArray alloc] init];
+    do {
+        WWOWeatherCode *weatherCode = [[WWOWeatherCode alloc] init];
+        weatherCode.code = [[TBXML textForElement:[TBXML childElementNamed:@"code" parentElement:conditionElement]] intValue];
+        weatherCode.description = [TBXML textForElement:[TBXML childElementNamed:@"description" parentElement:conditionElement]];
+        [weatherCodes addObject:weatherCode];
+    } while ((conditionElement = conditionElement->nextSibling));
+    return weatherCodes;
 }
 
 @end

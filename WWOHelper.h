@@ -11,10 +11,12 @@
 #import "TBXML.h"
 #import "WWOWeather.h"
 #import "WWOCurrentCondition.h"
+#import "WWOWeatherCode.h"
 
 @interface WWOHelper : NSObject
 
 + (WWOCurrentCondition *) getCurrentCondition;
 + (NSArray *) getWeatherByCoordinates:(float)latitude longitude:(float)longitude apiKey:(NSString *)apiKey;
++ (NSArray *) getWeatherCodes; 
 
 @end
