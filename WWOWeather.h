@@ -14,6 +14,7 @@
 @property (nonatomic) int tempMaxC;
 @property (nonatomic) int tempMinC;
 @property (nonatomic) int weatherCode;
+@property (nonatomic, retain) NSString *weatherDesc;
 
 - (WWOWeatherCell *) getCell:(UITableView *)tableView;
 

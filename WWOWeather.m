@@ -10,16 +10,17 @@
 
 @implementation WWOWeather
 
-@synthesize date;
+@synthesize date, weatherDesc;
 @synthesize tempMaxC, tempMinC, weatherCode;
 
 - (WWOWeatherCell *) getCell:(UITableView *)tableView
 {
     WWOWeatherCell *cell = (WWOWeatherCell *)[tableView dequeueReusableCellWithIdentifier:@"WWOWeatherCell"];
     cell.date.text = date;
-    cell.tempMaxC.text = [[NSString alloc] initWithFormat:@"%i", tempMaxC];
-    cell.tempMinC.text = [[NSString alloc] initWithFormat:@"%i", tempMinC];
+    cell.tempMaxC.text = [[NSString alloc] initWithFormat:@"%iºC", tempMaxC];
+    cell.tempMinC.text = [[NSString alloc] initWithFormat:@"%iºC", tempMinC];
     cell.weatherCode.text = [[NSString alloc] initWithFormat:@"%i", weatherCode];
+    cell.weatherDesc.text = weatherDesc;
     return cell;
 }
 

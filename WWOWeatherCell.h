@@ -14,5 +14,6 @@
 @property (nonatomic, retain) IBOutlet UILabel *tempMaxC;
 @property (nonatomic, retain) IBOutlet UILabel *tempMinC;
 @property (nonatomic, retain) IBOutlet UILabel *weatherCode;
+@property (nonatomic, retain)  IBOutlet UILabel *weatherDesc;
 
 @end

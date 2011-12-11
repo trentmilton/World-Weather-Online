@@ -10,6 +10,6 @@
 
 @implementation WWOWeatherCell
 
-@synthesize date, tempMaxC, tempMinC, weatherCode;
+@synthesize date, tempMaxC, tempMinC, weatherCode, weatherDesc;
 
 @end

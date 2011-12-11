@@ -37,8 +37,9 @@ static NSString *weatherCodesURLString = @"http://www.worldweatheronline.com/fee
     currentCondition.observationTime = [TBXML textForElement:[TBXML childElementNamed:@"observation_time" parentElement:currentConditionElement]];
     currentCondition.tempC = [[TBXML textForElement:[TBXML childElementNamed:@"temp_C" parentElement:currentConditionElement]] intValue];
     currentCondition.weatherCode = [[TBXML textForElement:[TBXML childElementNamed:@"weatherCode" parentElement:currentConditionElement]] intValue];
+    currentCondition.weatherDesc = [TBXML textForElement:[TBXML childElementNamed:@"weatherDesc" parentElement:currentConditionElement]];
     currentCondition.windspeedKmph = [[TBXML textForElement:[TBXML childElementNamed:@"windspeedKmph" parentElement:currentConditionElement]] intValue];
-    currentCondition.windspeed16Point = [[TBXML textForElement:[TBXML childElementNamed:@"winddir16Point" parentElement:currentConditionElement]] intValue];
+    currentCondition.windspeed16Point = [TBXML textForElement:[TBXML childElementNamed:@"winddir16Point" parentElement:currentConditionElement]];
     currentCondition.humidity = [[TBXML textForElement:[TBXML childElementNamed:@"humidity" parentElement:currentConditionElement]] intValue];
     currentCondition.cloudCover = [[TBXML textForElement:[TBXML childElementNamed:@"cloudcover" parentElement:currentConditionElement]] intValue];   
     
@@ -59,6 +60,9 @@ static NSString *weatherCodesURLString = @"http://www.worldweatheronline.com/fee
 
         TBXMLElement *weatherCodeElement = [TBXML childElementNamed:@"weatherCode" parentElement:weatherElement];
         weather.weatherCode = [[TBXML textForElement:weatherCodeElement] intValue];
+        
+        TBXMLElement *weatherDescElement = [TBXML childElementNamed:@"weatherDesc" parentElement:weatherElement];
+        weather.weatherDesc = [TBXML textForElement:weatherDescElement];
         
         [weathers addObject:weather];
             
