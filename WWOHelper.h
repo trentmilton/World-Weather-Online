@@ -16,6 +16,7 @@
 @interface WWOHelper : NSObject
 
 + (WWOCurrentCondition *) getCurrentCondition;
++ (WWOCurrentCondition *) getCurrentConditionByCoordinates:(float)latitude longitude:(float)longitude apiKey:(NSString *)apiKey;
 + (NSArray *) getWeatherByCoordinates:(float)latitude longitude:(float)longitude apiKey:(NSString *)apiKey;
 + (NSArray *) getWeatherCodes; 
 

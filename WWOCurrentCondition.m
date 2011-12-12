@@ -13,4 +13,7 @@
 @synthesize observationTime;
 @synthesize tempC, weatherCode, windspeedKmph, windspeed16Point, humidity, cloudCover, weatherDesc;
 
+// Extra optional properties
+@synthesize city;
+
 @end

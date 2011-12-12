@@ -17,4 +17,7 @@
 @property (nonatomic) int humidity;
 @property (nonatomic) int cloudCover;
 
+// Extra optional properties
+@property (nonatomic, retain) NSString *city;
+
 @end

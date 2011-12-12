@@ -13,13 +13,37 @@
 static WWOCurrentCondition *currentCondition;
 static NSString *weatherCodesURLString = @"http://www.worldweatheronline.com/feed/wwoConditionCodes.xml";
 
-+ (WWOCurrentCondition *) getCurrentCondition
++ (WWOCurrentCondition *)getCurrentCondition
 {
     if (currentCondition)
     {
         return currentCondition;
     }
     return nil;
+}
+
++ (WWOCurrentCondition *) getCurrentConditionByCoordinates:(float)latitude longitude:(float)longitude apiKey:(NSString *)apiKey
+{
+    NSString *urlString = [NSString stringWithFormat:@"http://free.worldweatheronline.com/feed/weather.ashx?key=%@&q=%f,%f&format=xml&num_of_days=0",
+                           apiKey, latitude, longitude];
+    NSURL *url = [NSURL URLWithString:urlString];
+    
+    TBXML *tbxml = [TBXML tbxmlWithURL:url];
+    TBXMLElement *root = tbxml.rootXMLElement;
+    
+    TBXMLElement *currentConditionElement = [TBXML childElementNamed:@"current_condition" parentElement:root];
+    
+    currentCondition = [[WWOCurrentCondition alloc] init];
+    currentCondition.observationTime = [TBXML textForElement:[TBXML childElementNamed:@"observation_time" parentElement:currentConditionElement]];
+    currentCondition.tempC = [[TBXML textForElement:[TBXML childElementNamed:@"temp_C" parentElement:currentConditionElement]] intValue];
+    currentCondition.weatherCode = [[TBXML textForElement:[TBXML childElementNamed:@"weatherCode" parentElement:currentConditionElement]] intValue];
+    currentCondition.weatherDesc = [TBXML textForElement:[TBXML childElementNamed:@"weatherDesc" parentElement:currentConditionElement]];
+    currentCondition.windspeedKmph = [[TBXML textForElement:[TBXML childElementNamed:@"windspeedKmph" parentElement:currentConditionElement]] intValue];
+    currentCondition.windspeed16Point = [TBXML textForElement:[TBXML childElementNamed:@"winddir16Point" parentElement:currentConditionElement]];
+    currentCondition.humidity = [[TBXML textForElement:[TBXML childElementNamed:@"humidity" parentElement:currentConditionElement]] intValue];
+    currentCondition.cloudCover = [[TBXML textForElement:[TBXML childElementNamed:@"cloudcover" parentElement:currentConditionElement]] intValue];  
+ 
+    return currentCondition;
 }
 
 + (NSArray *) getWeatherByCoordinates:(float)latitude longitude:(float)longitude apiKey:(NSString *)apiKey 
